@@ -4,6 +4,10 @@ import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { Ng2TableModule } from 'ng2-table/ng2-table';
+import { PaginationModule  } from 'ngx-bootstrap/ng2-bootstrap'
+
+
 import { UserListComponent, UserFormComponent } from './components/user/index'
 
 // Services
@@ -24,6 +28,9 @@ import { AgmCoreModule } from '@agm/core'
     FormsModule,
     CommonModule,
     HttpModule,
+    Ng2TableModule,
+    PaginationModule.forRoot(),
+
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAuQo7t-Rw9b3PhMNhHalith5kaZtSfDR8'
     }),
