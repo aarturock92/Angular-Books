@@ -7,26 +7,6 @@
                 </div>
         </div>
 
-        <!-- <table class="table">
-            <tbody>
-                <th>ID</th>
-                <th>Name</th>
-                <th>User</th>
-            </tbody>
-            <tbody>
-                <tr *ngFor="let user of Users">
-                    <td>
-                        {{user.ID}}
-                    </td>
-                    <td>
-                        {{user.Name}} {{user.FirstName}} {{user.SecondName}}
-                    </td>
-                    <td>
-                        {{user.User}}
-                    </td>
-                </tr>
-            </tbody>
-        </table> -->
         <ng-table [config]="config"
                   (tableChanged)="onChangeTable(config)"
                   (cellClicked)="onCellClick($event)"
