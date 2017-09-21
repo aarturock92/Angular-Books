@@ -38,12 +38,21 @@ export class UserListComponent implements OnInit{
   
     private data:Array<any> = TableData;
   
-    public constructor() {
+    public constructor(private userService: UserService) {
       this.length = this.data.length;
     }
   
     public ngOnInit():void {
+      this.loadUsers();
       this.onChangeTable(this.config);
+    }
+
+    public loadUsers(){
+        this.userService.getUsers()
+            .subscribe((users: IUser[]) => {
+                this.Users = users;
+                console.log('Users', this.Users);
+            })
     }
   
     public changePage(page:any, data:Array<any> = this.data):Array<any> {

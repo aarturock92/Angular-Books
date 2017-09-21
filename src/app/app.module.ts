@@ -12,6 +12,7 @@ import { UserListComponent, UserFormComponent } from './components/user/index'
 
 // Services
 import { UserService } from './services/index'
+import { ConfigService } from './utils/config.service'
 
 import { AppComponent } from './app.component';
 import { AgmCoreModule } from '@agm/core'
@@ -36,6 +37,7 @@ import { AgmCoreModule } from '@agm/core'
     }),
   ],
   providers: [
+    ConfigService,
     UserService
   ],
   bootstrap: [AppComponent]
