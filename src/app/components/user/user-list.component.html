@@ -7,6 +7,31 @@
                 </div>
         </div>
 
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>FullName</th>
+                    <th>User</th>
+                    <th>Email</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                    
+                <tr *ngFor="let user of Users">
+                    <td>{{user.Name}} {{user.FirstLastName}} {{user.SecondLastName}}</td>
+                    <td>{{user.User}}</td>
+                    <td>{{user.Email}}</td>
+                    <td><button class="btn btn-warning">Editar</button></td>
+                    <td><button class="btn btn-danger">Eliminar</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br>
+        <br>
+
         <ng-table [config]="config"
                   (tableChanged)="onChangeTable(config)"
                   (cellClicked)="onCellClick($event)"
