@@ -33,14 +33,16 @@ export class UserService{
                         })
     }
 
-    paginateUsers(page?: number, itemsPerPage?: number): Observable<PaginatedResult<IUser[]>>{
-        let paginatedResult: PaginatedResult<IUser[]> = new PaginatedResult<IUser[]>();
+    paginateUsers(page?: number, itemsPerPage?: number): Observable<PaginatedResult<Array<IUser>>>{
+        let paginatedResult: PaginatedResult<Array<IUser>> = new PaginatedResult<Array<IUser>>();
 
         return this.http.get(this._baseUrl + 'User/Search/' + page + '/' + itemsPerPage)
                         .map((res: Response) => {
                             let data = res.json();
-
-
+                            paginatedResult.result = data.docs;
+                            paginatedResult.total = data.total;
+                            paginatedResult.page = data.page;
+                            paginatedResult.pages = data.pages;
                             return paginatedResult;
                         })
     }
