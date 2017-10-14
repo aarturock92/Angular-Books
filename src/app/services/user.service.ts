@@ -17,8 +17,6 @@ export class UserService{
         this._baseUrl = configService.getApiURI();
     }
 
-
-
     getUsers(): Observable<IUser[]> {
         return this.http.get(this._baseUrl + 'User')
                         .map((res: Response) => {

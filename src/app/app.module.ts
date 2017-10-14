@@ -5,11 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { Ng2TableModule } from 'ng2-table/ng2-table';
+import { ModalModule } from 'ngx-bootstrap'
 import { PaginationModule  } from 'ngx-bootstrap/ng2-bootstrap'
 
-
 import { UserListComponent, UserFormComponent } from './components/user/index'
-
 // Services
 import { UserService } from './services/index'
 import { ConfigService } from './utils/config.service'
@@ -31,7 +30,7 @@ import { AgmCoreModule } from '@agm/core'
     HttpModule,
     Ng2TableModule,
     PaginationModule.forRoot(),
-
+    ModalModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAuQo7t-Rw9b3PhMNhHalith5kaZtSfDR8'
     }),

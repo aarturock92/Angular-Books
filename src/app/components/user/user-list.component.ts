@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, TemplateRef } from '@angular/core'
 import { UserService } from '../../services/user.service'
 import { IUser, PaginatedResult  } from '../../models/index'
+import { BsModalService } from 'ngx-bootstrap/modal'
+import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class'
+
 
 @Component({
     selector: 'user-list',
@@ -13,7 +16,6 @@ export class UserListComponent implements OnInit{
     public columns:Array<any> = [
       { title: 'Name', name: 'Name'},
       { title: 'User', name: 'User' },
-      { title: 'Editar', name: '_id'},
       { title: 'Eliminar', name: '_id'}
     ];
     public page:number = 1;
@@ -32,8 +34,11 @@ export class UserListComponent implements OnInit{
     };
   
     private data:Array<any>;
+    public modalRef: BsModalRef;
+
   
-    public constructor(private userService: UserService) {
+    public constructor(private userService: UserService,
+                       private modalService: BsModalService) {
     }
   
     public ngOnInit():void {
@@ -61,74 +66,16 @@ export class UserListComponent implements OnInit{
           this.loadUsers();
         }
     }
-  
-    public changeSort(data:any, config:any):any {
-      if (!config.sorting) {
-        return data;
-      }
-  
-      let columns = this.config.sorting.columns || [];
-      let columnName:string = void 0;
-      let sort:string = void 0;
-  
-      for (let i = 0; i < columns.length; i++) {
-        if (columns[i].sort !== '' && columns[i].sort !== false) {
-          columnName = columns[i].name;
-          sort = columns[i].sort;
-        }
-      }
-  
-      if (!columnName) {
-        return data;
-      }
-  
-      // simple sorting
-      return data.sort((previous:any, current:any) => {
-        if (previous[columnName] > current[columnName]) {
-          return sort === 'desc' ? -1 : 1;
-        } else if (previous[columnName] < current[columnName]) {
-          return sort === 'asc' ? -1 : 1;
-        }
-        return 0;
-      });
+
+    public changeItemPerPage(itemsPerPage: number){
+      this.itemsPerPage = itemsPerPage;
+      this.loadUsers();
     }
-  
-    public changeFilter(data:any, config:any):any {
-      let filteredData:Array<any> = data;
-      this.columns.forEach((column:any) => {
-        if (column.filtering) {
-          filteredData = filteredData.filter((item:any) => {
-            return item[column.name].match(column.filtering.filterString);
-          });
-        }
-      });
-  
-      if (!config.filtering) {
-        return filteredData;
-      }
-  
-      if (config.filtering.columnName) {
-        return filteredData.filter((item:any) =>
-          item[config.filtering.columnName].match(this.config.filtering.filterString));
-      }
-  
-      let tempArray:Array<any> = [];
-      filteredData.forEach((item:any) => {
-        let flag = false;
-        this.columns.forEach((column:any) => {
-          if (item[column.name].toString().match(this.config.filtering.filterString)) {
-            flag = true;
-          }
-        });
-        if (flag) {
-          tempArray.push(item);
-        }
-      });
-      filteredData = tempArray;
-  
-      return filteredData;
+
+    public openModal(template: TemplateRef<any>){
+      this.modalRef = this.modalService.show(template);
     }
-  
+   
     public onChangeTable(config:any, page:any = {page: this.page, itemsPerPage: this.itemsPerPage}, isResponseService:boolean = true):any {
       this.changePage(page, isResponseService);
     }
